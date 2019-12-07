@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+    <Properties>
+        <Property name="YYYYMMDD"> $${date:yyyyMMdd}</Property>
+    </Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<RollingFile name="RollingFile" >
+		    <fileName>D:/logs/${YYYYMMDD}.log</fileName>
+			<filePattern>D:/logs/${YYYYMMDD}/${YYYYMMDD}.log.zip</filePattern>
+			<PatternLayout>
+				<pattern>"%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" </pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="1000" fileIndex="min" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Root level="DEBUG" additivity="false">
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingFile" />
+		</Root>
+		<Logger name="org.springframework" level="INFO" additivity="false">
+			<Appender-ref ref="Console" />
+			<Appender-ref ref="RollingFile" />
+		</Logger>
+		<Logger name="org.springframework.jdbc" level="INFO" additivity="false">
+			<Appender-ref ref="Console" />
+			<Appender-ref ref="RollingFile" />
+		</Logger>
+		<Logger name="org.mybatis.spring" level="DEBUG" additivity="false">
+			<Appender-ref ref="Console" />
+			<Appender-ref ref="RollingFile" />
+		</Logger>
+		<Logger name="com.batch.example" level="DEBUG" additivity="false">
+			<Appender-ref ref="Console" />
+			<Appender-ref ref="RollingFile" />
+		</Logger>
+
+	</Loggers>
+</Configuration>
